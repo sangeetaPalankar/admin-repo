@@ -1,0 +1,10 @@
+#wrapper{
+    main{
+        min-height: calc(100vh - 128px);
+        max-height: calc(100vh - 128px);
+        padding: 0;
+    }
+}
+
+$base-color: #c6538c;
+$card-background-color: #f2f8f9;

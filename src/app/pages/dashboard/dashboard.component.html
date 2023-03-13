@@ -1,0 +1,39 @@
+<mat-card class="Welcome">
+    <mat-icon>person</mat-icon>
+    <mat-card-header>
+        <mat-card-title><b>Welcome Admin!</b></mat-card-title>
+    </mat-card-header>
+    <br>
+
+
+</mat-card>
+
+
+
+
+
+<mat-card class="Card " *ngFor="let card of cards">
+    <mat-card-title><b> {{ card.name }}</b></mat-card-title>
+
+    <br>
+    <mat-icon>group</mat-icon>
+    <br>
+    <div><b>
+            {{ card.count }}
+        </b></div>
+</mat-card>
+
+
+
+
+
+<mat-card class="mainCard">
+    <div class="buttons">
+        <button mat-raised-button color="primary" class="button" routerLink="patient-list">
+            View Registered Patient Info
+        </button>
+        <button mat-raised-button color="warn" class="button" routerLink="doctor-list">
+            Docotor Availability Schedule
+        </button>
+
+    </div>

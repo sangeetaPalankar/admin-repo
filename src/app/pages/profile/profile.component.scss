@@ -1,0 +1,27 @@
+.fit{
+    min-height: calc(100vh - 128px);
+        max-height: calc(100vh - 128px);
+        padding: 0;
+}
+
+  .profileButton{
+    background-color: white;
+    size: 100px;
+    align-self: auto;
+    margin-left: 170px;
+  }
+
+
+.ProfileCard{
+  background-color: aliceblue;
+  width: 500px;
+  padding: 20px;
+ 
+  align-self: center;
+  border-color: black;
+  border-width: 10px;
+}
+
+button{
+  background-color:lightgreen;
+}
