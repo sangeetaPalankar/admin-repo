@@ -1,11 +1,11 @@
-table {
-    width: 100%;
-margin-top: 40px;
-  }
-  .example-card{
-    max-width: 100%;
-    margin-bottom: 8px;
-  }
+// table {
+//     width: 100%;
+// margin-top: 40px;
+//   }
+//   .example-card{
+//     max-width: 100%;
+//     margin-bottom: 8px;
+//   }
 
   .heading{
     font-weight: bold;
@@ -14,4 +14,24 @@ margin-top: 40px;
    
     margin: 30px;
 
+  }
+
+
+
+  .example-card {
+    max-width: 100%;
+    margin-bottom: 8px;
+    margin-top: 20px;
+  }
+  .mat-elevation-z8 {
+    width: 100%;
+    margin-top: 15px;
+    .table-row:hover{
+      background-color: #f1f1f1;
+      cursor: pointer;
+    }
+  }  
+  table {
+    width: 100%;
+margin-top: 40px;
   }

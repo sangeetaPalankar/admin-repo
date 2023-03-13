@@ -36,7 +36,7 @@ import { DoctorAvailabilityComponent } from './pages/doctor-availability/doctor-
 // import {MatDatepickerModule} from '@angular/material';
 import {MatDialog} from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
-
+import {MatInputModule } from '@angular/material/input';
 
 const modules = [
   BrowserModule,
@@ -60,6 +60,9 @@ const modules = [
  MatDatepickerModule, 
  MatFormFieldModule,
  MatSortModule,
+ MatInputModule,
+
+
  
  
  ]

@@ -2,6 +2,9 @@ import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { DoctorAvailabilityComponent } from '../doctor-availability/doctor-availability.component';
+import {MatSort,Sort} from '@angular/material/sort';
+import {LiveAnnouncer} from '@angular/cdk/a11y';
+
 
 import {MatDialog} from '@angular/material/dialog';
 export interface DoctorData {
@@ -43,15 +46,33 @@ export class DoctorListComponent implements AfterViewInit{
   dataSource = new MatTableDataSource<DoctorData>(doctor_data);
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
 
     
   }
-  @ViewChild(MatDialog) dialog: MatDialog;
-  openDialog() {
-    this.dialog.open(DoctorAvailabilityComponent);
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
+  constructor(private _liveAnnouncer: LiveAnnouncer) {}
+  @ViewChild(MatSort) sort: MatSort;
+
+  announceSortChange(sortState: Sort) {
+    
+    if (sortState.direction) {
+      this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+    } else {
+      this._liveAnnouncer.announce('Sorting cleared');
+    }
   }
 
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
 
 
 }

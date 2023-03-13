@@ -13,9 +13,9 @@
     </div>
 
     <div class="menu">
-        <div class="menu-head">
+        <!-- <div class="menu-head">
             <span>Dashboard</span>
-        </div>
+        </div> -->
         <div class="menu-item">
             <button mat-button class="menu-button" [routerLink]="['/']">
                 <mat-icon>dashboard</mat-icon>
@@ -24,12 +24,13 @@
 
             <div>
                 <div mat-button class="menu-button" [routerLink]="['']">
-                    <mat-icon>medication</mat-icon>
+
+                    <mat-icon class="icon">medication</mat-icon>
                     <mat-tree class="itemDiv" [treeControl]="treeControl" [dataSource]="dataSource">
                         <mat-tree-node *matTreeNodeDef="let node;when:hasChild" matTreeNodePadding>
                             <div mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
 
-                                <mat-icon>{{treeControl.isExpanded(node)}}</mat-icon>
+                                <mat-icon style="display:none">{{treeControl.isExpanded(node)}}</mat-icon>
                                 <a routerLink="{{node.url}}">
                                     <p class="itemDiv">{{node.name}}</p>
                                 </a>
@@ -42,12 +43,12 @@
 
             <div>
                 <div mat-button class="menu-button" [routerLink]="['']">
-                    <mat-icon>assignment_ind</mat-icon>
+                    <mat-icon class="icon">assignment_ind</mat-icon>
                     <span>
                         <mat-tree class=" itemDiv" [treeControl]="treeControl" [dataSource]="dataSourceN">
                             <mat-tree-node *matTreeNodeDef="let node;when:hasChild" matTreeNodePadding>
                                 <div mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
-                                    <mat-icon>
+                                    <mat-icon style="display:none">
                                         {{treeControl.isExpanded(node)}}
                                     </mat-icon>
                                     <a routerLink="{{node.url}}">
