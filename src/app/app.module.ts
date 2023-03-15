@@ -30,13 +30,17 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSelectModule} from '@angular/material/select';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { DoctorAvailabilityComponent } from './pages/doctor-availability/doctor-availability.component';
-// import {MatDatepickerModule} from '@angular/material';
 import {MatDialog} from '@angular/material/dialog';
 import { MatSortModule } from '@angular/material/sort';
 import {MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog'; 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { DeleteConfirmationComponent } from './pages/delete-confirmation/delete-confirmation.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const modules = [
   BrowserModule,
@@ -61,9 +65,9 @@ const modules = [
  MatFormFieldModule,
  MatSortModule,
  MatInputModule,
-
-
- 
+ MatDialogModule,
+ MatNativeDateModule,
+ MatButtonToggleModule,
  
  ]
 
@@ -81,6 +85,7 @@ const modules = [
     AdminListComponent,
     CardComponent,
     DoctorAvailabilityComponent,
+    DeleteConfirmationComponent,
     
    
     
@@ -88,6 +93,7 @@ const modules = [
   imports: [
     CommonModule,
     modules,
+    HttpClientModule,
     
    
     

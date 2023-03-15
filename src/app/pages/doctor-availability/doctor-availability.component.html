@@ -1,5 +1,37 @@
-<h1 mat-dialog-title>Dialog with elements</h1>
-<div mat-dialog-content>This dialog showcases the title, close, content and actions elements.</div>
-<div mat-dialog-actions>
-    <button mat-button mat-dialog-close>Close</button>
+<div class="main">
+    <h3 style="color: black;">Update Doctor Availability</h3>
+
+
+    <mat-form-field class="dropdown" appearance="fill">
+        <mat-label>Doctor (required)</mat-label>
+        <mat-select>
+            <mat-option *ngFor="let doctor of doctors" [value]="doctor.value">
+                {{doctor.viewValue}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Available From</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field style="margin: 5px;" appearance="fill">
+        <mat-label>Available Till</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+
+    <div style="margin-left: 200px;">
+        <button style="margin: 5px;" mat-raised-button color="primary">Done</button>
+        <button mat-raised-button color="warn">Cancel</button>
+    </div>
+
+
+
 </div>
