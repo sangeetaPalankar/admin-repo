@@ -26,7 +26,7 @@ const FAMILY_TREE: Family[] = [
     name: 'Doctor',
     url:'/',
     children: [
-      {name: 'Add Doctor', url:'/'},
+      {name: 'Add Doctor', url:'https://manage.auth0.com/dashboard/us/dev-qnzlgih035ihuldo/users'},
       {name: 'List Doctors' , url:'doctor-list'}
     ],
   },
@@ -37,7 +37,7 @@ const NURSE_TREE: Nurse[] = [
     name: 'Nurse',
     url:'/',
     children: [
-      {name: 'Add Nurse', url:'/'},
+      {name: 'Add Nurse', url:"/"},
       {name: 'List Nurses' , url:'nurse-list'}
     ],
   }

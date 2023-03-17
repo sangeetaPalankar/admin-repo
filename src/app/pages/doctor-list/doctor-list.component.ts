@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { DoctorAvailabilityComponent } from '../doctor-availability/doctor-availability.component';
@@ -9,46 +9,53 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
 import {MatDialog} from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
-export interface DoctorData {
-  Id: number;
-  name:string;
-  fdate:string;
-  tdate:string;
-  update:boolean;
-  delete:boolean;
+import { DoctorListService } from './doctor-list.service';
+import { HttpErrorResponse } from '@angular/common/http';
+
+export class DoctorData {
+  physicianEmail: string;
+  startDate :string;
+  endDate: string;
+  availability: boolean;
 }
 
 
-const doctor_data: DoctorData[] = [
-  {Id: 1, name:'sangita palanker' , fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 2, name: 'eshvari burlaver', fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 3, name: 'mrunal barde',  fdate:'11-7-2022', tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 4, name:'sidhhi bhende',fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 1, name:'sangita palanker' , fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 2, name: 'eshvari burlaver', fdate:'11-7-2022',tdate:'11-7-2022' ,update:false , delete:false},
-  {Id: 3, name: 'mrunal barde',  fdate:'11-7-2022', tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 4, name:'sidhhi bhende',fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 1, name:'sangita palanker' , fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 2, name: 'eshvari burlaver', fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 3, name: 'mrunal barde',  fdate:'11-7-2022', tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 4, name:'sidhhi bhende',fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  {Id: 1, name:'sangita palanker' , fdate:'11-7-2022',tdate:'11-7-2022' ,update:false, delete:false},
-  
-];
+const doctor_data: DoctorData[] = [];
+
 @Component({
   selector: 'app-doctor-list',
   templateUrl: './doctor-list.component.html',
   styleUrls: ['./doctor-list.component.scss']
 })
-export class DoctorListComponent implements AfterViewInit{
+export class DoctorListComponent implements OnInit, AfterViewInit{
 
-  constructor(private _liveAnnouncer: LiveAnnouncer, public dialog: MatDialog ) {
-  }
+  public doctors: DoctorData[];
 
-  displayedColumns: string[] = ['Id','name','fdate', 'tdate','update', 'delete'];
+  constructor(
+    private _liveAnnouncer: LiveAnnouncer,
+    public dialog: MatDialog,
+    private doctorService: DoctorListService){}
+    private n:string;
+    ngOnInit(): void {
+      this.availablePhysicians();
+    }
+
+    
+
+    public availablePhysicians():void{
+      this.doctorService.availablePhysicians().subscribe(
+        (response: DoctorData[])=> {
+          this.doctors = response;
+        },
+        (error: HttpErrorResponse)=>{
+          alert(error.message);
+        }
+      )
+    }
+
+  displayedColumns: string[] = ['physicianEmail','startDate','endDate', 'availability','update', 'delete'];
   dataSource = new MatTableDataSource<DoctorData>(doctor_data);
   
   ngAfterViewInit() {
@@ -57,11 +64,12 @@ export class DoctorListComponent implements AfterViewInit{
   }
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  openDialog(){
+  openDialogUpdate(pemail:string){
     this.dialog.open(DoctorAvailabilityComponent);
+    this.doctorService.setThatVar(pemail);
   }
 
-  openDialogCancel(){
+  openDialogDelete(){
     this.dialog.open(DeleteConfirmationComponent);
   }
 

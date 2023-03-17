@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort,Sort} from '@angular/material/sort';
@@ -31,8 +31,19 @@ export class PatientListComponent implements AfterViewInit{
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
-    private patientListService: PatientListService
+    private patientListService: PatientListService,
+    private cdr: ChangeDetectorRef
     ) {}
+
+    ngOnInit(){
+      this.getPatients(); 
+      this.dataSource = new MatTableDataSource<PatientData>(this.patients);
+      this.cdr.detectChanges();
+    }
+    ngAfterViewInit() {
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }
     
     public patients: PatientData[]; //datasource
     displayedColumns: string[] = ['patientId','title','firstName','lastName','email','dob','contactNumber','address','gender'];
@@ -62,18 +73,7 @@ export class PatientListComponent implements AfterViewInit{
     }
 
 
-    // ngOnInit(){
-    //   this.getPatients(); 
-    //   this.dataSource = new MatTableDataSource<PatientData>(this.patients);
-    //   this.dataSource.paginator = this.paginator;
-    //   this.dataSource.sort = this.sort;
-    // }
-    ngAfterViewInit() {
-      this.getPatients(); 
-      this.dataSource = new MatTableDataSource<PatientData>(this.patients);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    }
+    
 
     public getPatients():void{
       this.patientListService.getPatients().subscribe(
