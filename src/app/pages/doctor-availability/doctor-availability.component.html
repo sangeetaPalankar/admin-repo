@@ -1,8 +1,8 @@
 <div class="main">
-    <h3 style="color: black;">Update Doctor Availability</h3>
+  <h3 style="color: black">Update Doctor Availability</h3>
 
-    <form form #userlogin="ngForm" (ngSubmit)="onClickSubmit(userlogin.value)">
-        <!-- <mat-form-field class="dropdown" appearance="fill">
+  <form form #userlogin="ngForm" (ngSubmit)="onClickSubmit(userlogin.value)">
+    <!-- <mat-form-field class="dropdown" appearance="fill">
             <mat-label>Doctor (required)</mat-label>
             <mat-select>
                 <mat-option *ngFor="let doctor of doctorslist" [value]="doctor.value">
@@ -11,34 +11,43 @@
             </mat-select>
         </mat-form-field> -->
 
-        <div>
-            <h4 style="color: black;">{{drName1}}</h4>
-            <h4 style="color: black;">{{startDate}}</h4>
-        </div>
+    <div>
+      <h4 style="color: black">{{ drName }}</h4>
+      <h4 style="color: black">{{ startDate }}</h4>
+    </div>
 
-        <mat-form-field appearance="fill">
-            <mat-label>Available From</mat-label>
-            <input name="startDate" matInput [matDatepicker]="picker" ngModel>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Available From</mat-label>
+      <input name="startDate" matInput [matDatepicker]="picker" ngModel />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
+    <mat-form-field style="margin: 5px" appearance="fill">
+      <mat-label>Available Till</mat-label>
+      <input name="endDate" matInput [matDatepicker]="picker1" ngModel />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
 
-        <mat-form-field style="margin: 5px;" appearance="fill">
-            <mat-label>Available Till</mat-label>
-            <input name=endDate matInput [matDatepicker]="picker1" ngModel>
-            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-            <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field>
-
-
-        <div style="margin-left: 200px;">
-            <button style="margin: 5px;" mat-raised-button color="primary" type="submit" value="submit">Save</button>
-            <button mat-raised-button color="warn">Cancel</button>
-        </div>
-
-    </form>
-
-
-
+    <div style="margin-left: 200px" display="inline-block">
+      <button
+        style="margin: 5px"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        value="submit"
+      >
+        Save
+      </button>
+      <button
+        mat-raised-button
+        color="warn"
+        type="button"
+        (click)="onNoClick()"
+      >
+        Cancel
+      </button>
+    </div>
+  </form>
 </div>

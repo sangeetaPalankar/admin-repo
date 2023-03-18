@@ -17,7 +17,7 @@ apiServerUrl= environment.physicianAvailabilityUrl;
     return this.http.put<DoctorData>(`${this.apiServerUrl}/physician-availability`, doctor);
   }
 
-  // public deletePhysicianAvailability(doctorEmail: string): Observable<void>{
-  //   return this.http.delete<void>(`${this.apiServerUrl}/physician-availability/${doctorEmail}`);
-  // }
+   public deletePhysicianAvailability(doctorEmail: string): Observable<void>{
+     return this.http.delete<void>(`${this.apiServerUrl}/physician-availability/${doctorEmail}`);
+   }
 }

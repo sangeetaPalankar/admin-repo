@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { DoctorAvailabilityComponent } from '../doctor-availability/doctor-availability.component';
@@ -13,6 +13,8 @@ import {MatDialog} from '@angular/material/dialog';
 import { DeleteConfirmationComponent } from '../delete-confirmation/delete-confirmation.component';
 import { DoctorListService } from './doctor-list.service';
 import { HttpErrorResponse } from '@angular/common/http';
+
+
 
 export class DoctorData {
   physicianEmail: string;
@@ -69,8 +71,9 @@ export class DoctorListComponent implements OnInit, AfterViewInit{
     this.doctorService.setThatVar(pemail);
   }
 
-  openDialogDelete(){
+  openDialogDelete(pemail:string){
     this.dialog.open(DeleteConfirmationComponent);
+    this.doctorService.setThatVar(pemail);
   }
 
  //sorting table

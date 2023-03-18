@@ -19,7 +19,8 @@ export interface PatientData {
   gender:string;
 }
 
-const ELEMENT_DATA: PatientData[]=[];
+let ELEMENT_DATA: PatientData[]=[
+];
 
 
 @Component({
@@ -37,17 +38,18 @@ export class PatientListComponent implements AfterViewInit{
 
     ngOnInit(){
       this.getPatients(); 
-      this.dataSource = new MatTableDataSource<PatientData>(this.patients);
+      
       this.cdr.detectChanges();
-    }
-    ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    }
+    ngAfterViewInit() {
+      
     }
     
     public patients: PatientData[]; //datasource
     displayedColumns: string[] = ['patientId','title','firstName','lastName','email','dob','contactNumber','address','gender'];
-    dataSource = new MatTableDataSource<PatientData>();
+    dataSource = new MatTableDataSource<PatientData>(ELEMENT_DATA);
 
     
     
@@ -79,7 +81,15 @@ export class PatientListComponent implements AfterViewInit{
       this.patientListService.getPatients().subscribe(
         (response: PatientData[])=> {
           this.patients= response;
-          console.log(this.patients);
+          var len=this.patients.length;
+          var i:number;
+          for(i = 0;i<=len;i++) {
+            ELEMENT_DATA.push(this.patients[i]);
+         }
+         this.dataSource = new MatTableDataSource<PatientData>(ELEMENT_DATA);
+          console.log(ELEMENT_DATA);
+          console.log("datasource:", this.dataSource);
+
         },
         (error: HttpErrorResponse)=>{
           alert(error.message);

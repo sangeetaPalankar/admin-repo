@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 export class DoctorListService {
   
   private apiServerUrl= environment.physicianAvailabilityUrl;
-  public myVar:String;
+  public myVar:string;
   constructor(
     private http: HttpClient
   ) {}
@@ -18,11 +18,21 @@ export class DoctorListService {
   public availablePhysicians(): Observable<DoctorData[]>{
     return this.http.get<DoctorData[]>(`${this.apiServerUrl}/physician-availability`);
   }
+  public availablePhysiciansUpdate(doctor:DoctorData): Observable<DoctorData[]>{
+    return this.http.put<DoctorData[]>(`${this.apiServerUrl}/physician-availability`,doctor);
+
+
+  }
+
+  
+  public availablePhysiciansdelete(doctor:string): Observable<string[]>{
+    return this.http.delete<string[]>(`${this.apiServerUrl}/physician-availability/{doctor}`);
+  }
 
   
 
 
-  public setThatVar(sangeeta: String) {
+  public setThatVar(sangeeta: string) {
     this.myVar=sangeeta;
   }
 

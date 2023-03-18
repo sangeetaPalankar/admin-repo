@@ -3,6 +3,9 @@ import { DoctorData } from '../doctor-list/doctor-list.component';
 import { DoctorListService } from '../doctor-list/doctor-list.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DoctorAvailabilityService } from './doctor-availability.service';
+import { DatePipe } from '@angular/common';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
 
 
 
@@ -16,9 +19,10 @@ export class DoctorAvailabilityComponent {
   public doctors: DoctorData=new DoctorData();
   public editDoctorAvailability: DoctorData;
   public drName: string;
-  public startDate:string;
-  public endDate:string;
-  public drName1:String;
+  public startDate:any;
+  public endDate:any;
+ 
+
   
 
   minDate: Date;
@@ -27,6 +31,10 @@ export class DoctorAvailabilityComponent {
   constructor(
     private doctorService: DoctorListService,
     private doctorAvailability: DoctorAvailabilityService,
+    private datePipe:DatePipe,
+    public dialogRef: MatDialogRef<DoctorAvailabilityComponent>,
+   
+    
     
   ) {
     // Set the minimum to January 1st 20 years in the past and December 31st a year in the future.
@@ -38,50 +46,10 @@ export class DoctorAvailabilityComponent {
   tittle = 'datePicker';
 
   ngOnInit(){
-    this.drName1=this.doctorService.getThatVar();
+    this.drName=this.doctorService.getThatVar();
   }
 
-  // public availablePhysicians():void{
-  //   this.doctorService.availablePhysicians().subscribe(
-  //     (response: DoctorData[])=> {
-  //       this.doctors = response;
-  //     },
-  //     (error: HttpErrorResponse)=>{
-  //       alert(error.message);
-  //     }
-  //   )
-  // }
-
-  // public updatedPhysicianAvailabilitys(doctor: DoctorData): void {
-  //   this.doctorService.updatedPhysicianAvailabilitys(doctor).subscribe(
-  //     (response: DoctorData) => {
-  //       console.log(response);
-  //       this.availablePhysicians();
-  //     },
-  //     (error: HttpErrorResponse) => {
-  //       alert(error.message);
-  //     }
-  //   );
-  // }
-
-
-
-  // minDate:any ="";
-  // getDate(){
-  //   var date:any = new Date();
-  //   var toDate:any =date.getDate();
-  //   if(toDate < 10){
-  //     toDate = '0' + toDate;
-  //   }
-  //   var month:any = date.getMonth() +1;
-  //   if(month <10){
-  //     month = '0' + month;
-  //   }
-  //   var year = date.getFullYear();
-  //   this.minDate = year+ "-" + month +"-" + toDate;
-  //   console.log(this.minDate);
-
-  // }
+  
 
   printto(){
     console.log(this.doctorService.getThatVar());
@@ -96,7 +64,7 @@ export class DoctorAvailabilityComponent {
     this.doctorAvailability.updatePhysicianAvailability(doctor).subscribe(
       (response: DoctorData) => {
         console.log(response);
-        this.doctorService.availablePhysicians();
+        this.doctorService.availablePhysiciansUpdate(doctor);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -104,16 +72,31 @@ export class DoctorAvailabilityComponent {
     );
   }
 
+  convertDate(a:any){
+    return this.datePipe.transform(a,'yyyy-MM-dd');
+  }
+
   onClickSubmit 
     (arg0: any) {
+    console.log(arg0.startDate);
+    let savebtn=document.getElementById("Save");
+    let cancelbtn=document.getElementById("Cancel");
+
+    this.startDate=this.convertDate(arg0.startDate);
+    this.endDate=this.convertDate(arg0.endDate);
     
-    this.startDate=arg0.startDate;
-    this.endDate=arg0.endDate;
     this.doctors.physicianEmail=this.drName;
-    this.doctors.startDate="06/06/2023";
-    this.doctors.endDate="04/02/2023";
+    this.doctors.startDate=this.startDate;
+    this.doctors.endDate=this.endDate;
+    console.log(this.doctors.startDate);
+    console.log(this.doctors.endDate);
+    
     this.doctors.availability=true;
     this.updatePhysicianAvailability(this.doctors);
+    }
+
+    onNoClick(): void {
+      this.dialogRef.close();
     }
 
 
